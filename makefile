@@ -1,6 +1,5 @@
-TARGET=tspdb
+PACKAGE=tspetl
 VERSION=0.1.0
-PACKAGE=tspdb
 TAR_FILE=dist/$(PACKAGE)-$(VERSION).tar.gz
 
 install: build
@@ -19,4 +18,4 @@ upload:
 	
 clean:
 	/bin/rm -rf build dist site MANIFEST
-	pip freeze | grep "$(PACKAGE)==$(VERSION)" && pip uninstall -y $(TARGET)
+	pip freeze | grep "$(PACKAGE)==$(VERSION)" && pip uninstall -y $(PACKAGE)
