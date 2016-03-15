@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import os
 
 
 class ETLTool(object):
@@ -22,6 +23,16 @@ class ETLTool(object):
         self._email = None
         self._api_token = None
         self._api_host = None
+        print('Hello')
+
+        if 'TSP_EMAIL' in os.environ:
+            self._email = os.environ['TSP_EMAIL']
+        if 'TSP_API_TOKEN' in os.environ:
+            self._api_token = os.environ['TSP_API_TOKEN']
+        if 'TSP_API_HOST' in os.environ:
+            self._api_host = os.environ['TSP_API_HOST']
+        else:
+            self._api_host = 'api.truesight.bmc.com'
 
     @property
     def name(self):
