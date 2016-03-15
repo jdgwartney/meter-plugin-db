@@ -13,7 +13,7 @@ setup(
     license='LICENSE',
     entry_points={
         'console_scripts': [
-            'tsp-etl = tspetl.tspetl:main',
+            'tsp-etl = tspetl.etl_cli:main',
          ],
     },
     description='TrueSight Pulse Database Extractor',
