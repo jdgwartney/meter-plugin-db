@@ -21,6 +21,7 @@ class ETLTool(object):
         self._parser = None
         self._email = None
         self._api_token = None
+        self._api_host = None
 
     @property
     def name(self):
@@ -33,14 +34,18 @@ class ETLTool(object):
     def add_parser(self, sub_parser):
         self._parser = sub_parser.add_parser(self.name, help=self.help)
         self._parser.add_argument('-e', '--e-mail', dest='email', metavar='email')
-        self._parser.add_argument('-t', '--api-token', dest='api_token', metavar='api_token')
+        self._parser.add_argument('-t', '--api-token', dest='api_token', metavar='token')
+        self._parser.add_argument('-a', '--api-host', dest='api_host', metavar='hostname')
 
     def handle_arguments(self, args):
         if args.email is not None:
             self._email = args.email
 
-        if args.batch_count is not None:
-            self._batch_count = args.batch_count
+        if args.api_token is not None:
+            self._api_token = args.api_token
+
+        if args.api_host is not None:
+            self._api_host = args.api_host
 
     def run(self, args):
         pass
