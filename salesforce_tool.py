@@ -16,21 +16,18 @@
 from tspetl import ETLTool
 
 
-class StockTool(ETLTool):
+class SalesForceTool(ETLTool):
 
     def __init__(self):
-        super(StockTool, self).__init__()
+        pass
 
     @property
     def name(self):
-        return 'stock'
+        return 'salesforce'
 
     @property
     def help(self):
-        return 'Collects stock price and volume'
-
-    def add_parser(self, sub_parser):
-        super(StockTool, self).add_parser(sub_parser)
+        return 'Collects data from Sales Force'
 
     def run(self, args):
         pass

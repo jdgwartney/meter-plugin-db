@@ -16,21 +16,21 @@
 from tspetl import ETLTool
 
 
-class StockTool(ETLTool):
+class TwitterTool(ETLTool):
 
     def __init__(self):
-        super(StockTool, self).__init__()
+        pass
 
     @property
     def name(self):
-        return 'stock'
+        return 'twitter'
 
     @property
     def help(self):
-        return 'Collects stock price and volume'
+        return 'Collects tweet data from Twitter'
 
     def add_parser(self, sub_parser):
-        super(StockTool, self).add_parser(sub_parser)
+        super(TwitterTool, self).add_parser(sub_parser)
 
     def run(self, args):
         pass

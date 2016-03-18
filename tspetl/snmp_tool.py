@@ -27,7 +27,7 @@ class SNMPTool(ETLTool):
 
     @property
     def help(self):
-        return ''
+        return 'Collects measurements from an SNMP agent'
 
     def add_parser(self, sub_parser):
         super(SNMPTool, self).add_parser(sub_parser)

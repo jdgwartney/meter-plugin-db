@@ -16,21 +16,21 @@
 from tspetl import ETLTool
 
 
-class StockTool(ETLTool):
+class JiraTool(ETLTool):
 
     def __init__(self):
-        super(StockTool, self).__init__()
+        pass
 
     @property
     def name(self):
-        return 'stock'
+        return 'jira'
 
     @property
     def help(self):
-        return 'Collects stock price and volume'
+        return 'Collects measurements from Jira Ticketing System'
 
     def add_parser(self, sub_parser):
-        super(StockTool, self).add_parser(sub_parser)
+        super(JiraTool, self).add_parser(sub_parser)
 
     def run(self, args):
         pass

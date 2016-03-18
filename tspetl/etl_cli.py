@@ -13,10 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from tspetl import CSVTool
-from tspetl import ApacheLogTool
-from tspetl import SNMPTool
 import argparse
+from tspetl import ApacheLogTool
+from tspetl import DBTool
+from tspetl import CSVTool
+from tspetl import GitHubTool
+from tspetl import JiraTool
+from tspetl import LogTool
+from tspetl import SalesForceTool
+from tspetl import SNMPTool
+from tspetl import StockTool
+from tspetl import SysLogTool
+from tspetl import TwitterTool
+from tspetl import WeatherTool
+from tspetl import XMLTool
 
 
 class TspEtlCli(object):
@@ -26,14 +36,20 @@ class TspEtlCli(object):
         self._subparsers = None
         self._args = None
 
-        self._db_parser = None
-        self._xml_parser = None
-        self._log_parser = None
-
         self._tool_map = {}
-        self._add_tool(CSVTool())
-        self._add_tool(SNMPTool())
         self._add_tool(ApacheLogTool())
+        self._add_tool(DBTool())
+        self._add_tool(CSVTool())
+        self._add_tool(GitHubTool())
+        self._add_tool(JiraTool())
+        self._add_tool(LogTool())
+        self._add_tool(SalesForceTool())
+        self._add_tool(SNMPTool())
+        self._add_tool(StockTool())
+        self._add_tool(SysLogTool())
+        self._add_tool(TwitterTool())
+        self._add_tool(WeatherTool())
+        self._add_tool(XMLTool())
 
     def _add_tool(self, tool):
         self._tool_map[tool.name] = tool
@@ -45,34 +61,9 @@ class TspEtlCli(object):
         for key, tool in self._tool_map.iteritems():
             tool.add_parser(self._subparsers)
 
-        self._custom_parser = self._subparsers.add_parser('custom', help="import CSV file")
-
-        self._github_parser = self._subparsers.add_parser('github', help="import data GitHub")
-
-        self._log_parser = self._subparsers.add_parser('jira', help="import data from Jira")
-
-        self._log_parser = self._subparsers.add_parser('log', help="import log file")
-        self._log_parser.add_argument('-f', '--file', metavar="path", help="Path to file to import", required=False)
-
-        self._sales_force_parser = self._subparsers.add_parser('salesforce', help="import data from Sales Force")
-
-        self._snmp_parser = self._subparsers.add_parser('snmp', help="import SNMP data")
-
-        self._snmp_parser = self._subparsers.add_parser('stock', help="import stock price and volume")
-
-        self._syslog_parser = self._subparsers.add_parser('syslog', help="import syslog file")
-
-        self._twitter_parser = self._subparsers.add_parser('twitter', help="import data from Twitter")
-
-        self._weather_parser = self._subparsers.add_parser('weather', help="import weather data from Open Weather Map")
-
-        self._xml_parser = self._subparsers.add_parser('xml', help="import xml file")
-        self._xml_parser.add_argument('-f', '--file', metavar="path", help="Path to XML file to import", required=False)
-
     def _parse_arguments(self):
         self._create_parser()
         args = self._parser.parse_args()
-        print(args)
         self._tool_map[args.command_name].run(args)
 
     def run(self):

@@ -36,7 +36,7 @@ class WeatherTool(ETLTool):
 
     @property
     def name(self):
-        return 'stock'
+        return 'weather'
 
     @property
     def help(self):

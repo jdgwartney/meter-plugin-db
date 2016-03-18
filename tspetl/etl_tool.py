@@ -32,7 +32,6 @@ class ETLTool(object):
         self._email = None
         self._api_token = None
         self._api_host = None
-        print('Hello')
 
         if 'TSP_EMAIL' in os.environ:
             self._email = os.environ['TSP_EMAIL']
