@@ -36,7 +36,7 @@ class DataSink(object):
 
 class APIDataSink(DataSink):
 
-    def __init__(self, email, api_token, api_host):
+    def __init__(self, email=None, api_token=None, api_host=None):
         super(APIDataSink, self).__init__()
         self._api = API(email=email, api_token=api_token, api_host=api_host)
 
@@ -50,7 +50,7 @@ class APIDataSink(DataSink):
         self._api.measurement_create(metric=measurement.metric,
                                      value=measurement.value,
                                      source=measurement.source,
-                                     timestamp=measurement.source)
+                                     timestamp=measurement.timestamp)
 
     def send_measurements(self, measurements):
         self._api.measurement_create_batch(measurements)
@@ -59,7 +59,7 @@ class APIDataSink(DataSink):
 class RPCDataSink(DataSink):
 
     def __init__(self):
-        super(APIDataSink, self).__init__()
+        super(RPCDataSink, self).__init__()
 
     def send_event(self, event):
         pass
@@ -77,6 +77,6 @@ class RPCDataSink(DataSink):
 class StdOutDataSink(DataSink):
 
     def __init__(self):
-        super(APIDataSink, self).__init__()
+        super(StdOutDataSink, self).__init__()
 
 

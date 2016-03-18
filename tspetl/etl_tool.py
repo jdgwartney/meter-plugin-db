@@ -33,15 +33,6 @@ class ETLTool(object):
         self._api_token = None
         self._api_host = None
 
-        if 'TSP_EMAIL' in os.environ:
-            self._email = os.environ['TSP_EMAIL']
-        if 'TSP_API_TOKEN' in os.environ:
-            self._api_token = os.environ['TSP_API_TOKEN']
-        if 'TSP_API_HOST' in os.environ:
-            self._api_host = os.environ['TSP_API_HOST']
-        else:
-            self._api_host = 'api.truesight.bmc.com'
-
     @property
     def name(self):
         return None
@@ -50,13 +41,32 @@ class ETLTool(object):
     def help(self):
         return None
 
+    @property
+    def email(self):
+        return self._email
+
+    @property
+    def api_token(self):
+        return self._api_token
+
+    @property
+    def api_host(self):
+        return self._api_host
+
     def add_parser(self, sub_parser):
         self._parser = sub_parser.add_parser(self.name, help=self.help)
         self._parser.add_argument('-e', '--e-mail', dest='email', metavar='email')
         self._parser.add_argument('-t', '--api-token', dest='api_token', metavar='token')
         self._parser.add_argument('-a', '--api-host', dest='api_host', metavar='hostname')
+        self._parser.add_argument('-s', '--sink-type', dest='sink_type', choices=['api', 'rpc', 'std'])
 
     def handle_arguments(self, args):
+        """
+        Handled the command line arguments for the tool
+        :param args: Namespace object from argparse
+        :return: None
+        """
+
         if args.email is not None:
             self._email = args.email
 
@@ -66,5 +76,5 @@ class ETLTool(object):
         if args.api_host is not None:
             self._api_host = args.api_host
 
-    def run(self, args):
+    def run(self, sink):
         pass

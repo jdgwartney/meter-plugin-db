@@ -13,26 +13,47 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from time import sleep
+import string
 from tspetl import ETLCollector
 from tspetl import ETLTool
+import pyowm
+from tspapi import Measurement
 
 
 class WeatherCollector(ETLCollector):
+    def __init__(self, sink, api_key=None, cities=None):
+        super(WeatherCollector, self).__init__()
+        self._api_key = None
+        self._cities = None
+        self._sink = sink
+        if api_key is not None:
+            self._api_key = api_key
+        if cities is not None:
+            self._cities = cities
 
-    def __init__(self, sink, **kwargs):
-        super(WeatherCollector, self).__init__(sink)
-        self._api_key = hasattr(kwargs, 'api_key')
-        self._cities = hasattr(kwargs, 'cities')
-        se
+        self._owm = pyowm.OWM(self._api_key)
 
     def collect(self):
-        pass
+        measurements = []
+        for city in self._cities:
+            observation = self._owm.weather_at_place(city)
+            weather = observation.get_weather()
+            city = string.replace(city, ',', '_')
+            city = string.replace(city, ' ', '_')
+            temperature = weather.get_temperature('celsius')['temp']
+            measurement = Measurement(metric='OWM_TEMPERATURE', source=city, value=temperature)
+            measurements.append(measurement)
+
+        self._sink.send_measurements(measurements=measurements)
 
 
 class WeatherTool(ETLTool):
-
     def __init__(self):
-        pass
+        super(WeatherTool, self).__init__()
+        self._city_names = None
+        self._interval = 60
+        self._api_key = None
 
     @property
     def name(self):
@@ -44,18 +65,31 @@ class WeatherTool(ETLTool):
 
     def add_parser(self, sub_parser):
         super(WeatherTool, self).add_parser(sub_parser)
-        self._parser.add_argument('-c', '--city-name', dest='city_name', metavar="city_name", help="Name of a city with an optional country code", required=False)
-        self._parser.add_argument('-i', '--interval', dest='interval', metavar="seconds",
-                                  help="How often to collect in each API call", required=False)
-        self._parser.add_argument('-k', '--api-key', dest='api_key', metavar="key", required=True,
+        self._parser.add_argument('-c', '--city-name', dest='city_names', action='append', metavar="city_name",
+                                  required=True,
+                                  help="Name of a city with an optional country code")
+        self._parser.add_argument('-i', '--interval', dest='interval', action='store', metavar="seconds",
+                                  required=False,
+                                  help="How often to collect in each API call in seconds. Defaults to 1 minute")
+        self._parser.add_argument('-k', '--api-key', dest='api_key', action='store', metavar="key", required=True,
                                   help="Open Weather Map API Key")
 
-    def _handle_arguments(self, args):
-        pass
+    def handle_arguments(self, args):
+        super(WeatherTool, self).handle_arguments(args)
 
-    def run(self, args, sink):
-        collector = WeatherCollector(sink, )
+        if args.city_names is not None:
+            print(type(args.city_names))
+            self._city_names = args.city_names
+
+        if args.interval is not None:
+            self._interval = args.interval
+
+        if args.api_key is not None:
+            self._api_key = args.api_key
+
+    def run(self, sink):
+        collector = WeatherCollector(sink, cities=self._city_names, api_key=self._api_key)
 
         while True:
-            pass
-
+            collector.collect()
+            sleep(float(self._interval))

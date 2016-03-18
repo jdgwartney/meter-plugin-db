@@ -28,6 +28,8 @@ from tspetl import TwitterTool
 from tspetl import WeatherTool
 from tspetl import XMLTool
 
+from tspetl import APIDataSink
+
 
 class TspEtlCli(object):
 
@@ -54,6 +56,13 @@ class TspEtlCli(object):
     def _add_tool(self, tool):
         self._tool_map[tool.name] = tool
 
+    def load_tools(self):
+        """
+        TODO Add capability to dynamically load the tools
+        :return:
+        """
+        pass
+
     def _create_parser(self):
         self._parser = argparse.ArgumentParser(description="Tool to extract/transform/load into Pulse")
         self._subparsers = self._parser.add_subparsers(help='commands', dest='command_name')
@@ -61,13 +70,13 @@ class TspEtlCli(object):
         for key, tool in self._tool_map.iteritems():
             tool.add_parser(self._subparsers)
 
-    def _parse_arguments(self):
+    def run(self):
         self._create_parser()
         args = self._parser.parse_args()
-        self._tool_map[args.command_name].run(args)
-
-    def run(self):
-        self._parse_arguments()
+        tool = self._tool_map[args.command_name]
+        sink = APIDataSink(api_host=tool.api_host, email=tool.email, api_token=tool.api_token)
+        tool.handle_arguments(args)
+        tool.run(sink)
 
 
 def main():

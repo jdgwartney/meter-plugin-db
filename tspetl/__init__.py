@@ -17,6 +17,8 @@ from __future__ import absolute_import
 
 from tspetl.etl_tool import ETLTool
 from tspetl.etl_tool import ETLCollector
+from tspetl.data_sink import APIDataSink
+from tspetl.data_sink import StdOutDataSink
 from tspetl.apache_log_tool import ApacheLogTool
 from tspetl.db_tool import DBTool
 from tspetl.csv_tool import CSVTool
@@ -30,4 +32,5 @@ from tspetl.syslog_tool import SysLogTool
 from tspetl.twitter_tool import TwitterTool
 from tspetl.weather_tool import WeatherTool
 from tspetl.xml_tool import XMLTool
+
 
