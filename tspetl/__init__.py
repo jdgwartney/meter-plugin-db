@@ -15,10 +15,9 @@
 #
 from __future__ import absolute_import
 
+from tspetl.apache_log_tool import ApacheLogTool
+from tspetl.csv_tool import CSVTool
 from tspetl.etl_tool import ETLCollector
 from tspetl.etl_tool import ETLTool
-
-from tspetl.tools.snmp_tool import SNMPTool
-from tspetl.tools.apache_log_tool import ApacheLogTool
-from tspetl.tools.csv_tool import CSVTool
+from tspetl.snmp_tool import SNMPTool
 
