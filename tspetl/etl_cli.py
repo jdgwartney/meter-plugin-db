@@ -15,7 +15,7 @@
 #
 from tspetl import CSVTool
 from tspetl import ApacheLogTool
-from tspetl.tools import SNMPTool
+from tspetl import SNMPTool
 import argparse
 
 
@@ -33,6 +33,7 @@ class TspEtlCli(object):
         self._tool_map = {}
         self._add_tool(CSVTool())
         self._add_tool(SNMPTool())
+        self._add_tool(ApacheLogTool())
 
     def _add_tool(self, tool):
         self._tool_map[tool.name] = tool
