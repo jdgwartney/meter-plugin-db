@@ -16,6 +16,15 @@
 import os
 
 
+class ETLCollector(object):
+
+    def __init__(self):
+        pass
+
+    def collect(self):
+        pass
+
+
 class ETLTool(object):
 
     def __init__(self):

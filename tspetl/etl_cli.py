@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 from tspetl import CSVTool
+from tspetl import ApacheLogTool
+from tspetl.tools import SNMPTool
 import argparse
 
 
@@ -24,20 +26,23 @@ class TspEtlCli(object):
         self._subparsers = None
         self._args = None
 
-        self._csv_parser = None
         self._db_parser = None
         self._xml_parser = None
         self._log_parser = None
 
         self._tool_map = {}
-        self._csv_tool = CSVTool()
-        self._tool_map[self._csv_tool.name] = self._csv_tool
+        self._add_tool(CSVTool())
+        self._add_tool(SNMPTool())
+
+    def _add_tool(self, tool):
+        self._tool_map[tool.name] = tool
 
     def _create_parser(self):
         self._parser = argparse.ArgumentParser(description="Tool to extract/transform/load into Pulse")
         self._subparsers = self._parser.add_subparsers(help='commands', dest='command_name')
 
-        self._csv_tool.add_parser(self._subparsers)
+        for key, tool in self._tool_map.iteritems():
+            tool.add_parser(self._subparsers)
 
         self._custom_parser = self._subparsers.add_parser('custom', help="import CSV file")
 

@@ -1,5 +1,5 @@
 #
-# Copyright 2015 BMC Software, Inc.
+# Copyright 2016 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,12 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from __future__ import absolute_import
+from tspetl import ETLTool
 
-from tspetl.etl_tool import ETLCollector
 
-from tspetl.etl_tool import ETLTool
-from tspetl.csv_tool import CSVTool
-from tspetl.apache_log_tool import ApacheLogTool
+class StockTool(ETLTool):
 
-from tspetl.tools import SNMPTool
+    def __init__(self):
+        pass
+
+    @property
+    def name(self):
+        return 'stock'
+
+    @property
+    def help(self):
+        return ''
+
+    def run(self, args):
+        pass

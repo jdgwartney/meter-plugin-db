@@ -28,7 +28,7 @@ class DBTool(ETLTool):
     def help(self):
         return 'import data from a relational database'
 
-    def set_parser(self, parser):
+    def add_parser(self, parser):
         self._parser = parser.add_parser(self.name, help=self.help)
         self._parser.add_argument('-u', '--user', metavar='name',
                                   help="name of the user to connect to the database")
@@ -39,9 +39,5 @@ class DBTool(ETLTool):
         self._parser.add_argument('-q', '--query', metavar='sql_query',
                                   help="SQL query to use to extract data")
 
-    def parse_arguments(self):
-        pass
-
-    def run(self):
+    def run(self, args):
         print("Import CSV")
-        pass
