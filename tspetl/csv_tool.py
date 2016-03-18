@@ -23,7 +23,7 @@ import logging
 
 class CSVCollector(ETLCollector):
 
-    def __init__(self):
+    def __init__(self, sink, file_path, batch_count, skip_first_line):
         super(CSVCollector, self).__init__()
 
     def collect(self):

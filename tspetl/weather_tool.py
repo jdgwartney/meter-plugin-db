@@ -23,10 +23,11 @@ from tspapi import Measurement
 
 class WeatherCollector(ETLCollector):
     def __init__(self, sink, api_key=None, cities=None):
-        super(WeatherCollector, self).__init__()
+        super(WeatherCollector, self).__init__(sink)
+
         self._api_key = None
         self._cities = None
-        self._sink = sink
+
         if api_key is not None:
             self._api_key = api_key
         if cities is not None:

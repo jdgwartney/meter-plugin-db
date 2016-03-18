@@ -18,7 +18,11 @@ from tspetl import ETLTool
 
 class DBTool(ETLTool):
     def __init__(self):
-        pass
+
+        self._name = None
+        self._password = None
+        self._database = None
+        self._query = None
 
     @property
     def name(self):
@@ -26,7 +30,7 @@ class DBTool(ETLTool):
 
     @property
     def help(self):
-        return 'import data from a relational database'
+        return 'Import data from a relational database'
 
     def add_parser(self, parser):
         self._parser = parser.add_parser(self.name, help=self.help)
@@ -39,5 +43,11 @@ class DBTool(ETLTool):
         self._parser.add_argument('-q', '--query', metavar='sql_query',
                                   help="SQL query to use to extract data")
 
-    def run(self, args):
+    def handle_arguments(self, args):
+
+        if args.name is not None:
+            self._name = args.name
+        pass
+
+    def run(self, sink):
         print("Import CSV")

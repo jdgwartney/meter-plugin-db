@@ -18,8 +18,8 @@ import os
 
 class ETLCollector(object):
 
-    def __init__(self):
-        pass
+    def __init__(self, sink):
+        self._sink = sink
 
     def collect(self):
         pass

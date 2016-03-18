@@ -20,5 +20,7 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
        'tspapi',
+       'pyowm',
+       'petl',
     ],
 )
