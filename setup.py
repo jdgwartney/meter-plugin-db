@@ -20,7 +20,7 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
        'python-dateutil >= 2.5.2',
-       'tspapi >= 0.3.4',
+       'tspapi >= 0.3.5',
        'pyowm >= 2.3.0',
        'petl >= 1.1.0',
     ],
