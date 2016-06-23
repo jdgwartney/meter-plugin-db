@@ -3,6 +3,14 @@
 Provides various tools to extract measurement data from a system and then uses the TrueSight Pulse REST API to send measurement data to
 your account.
 
+# Installation
+
+The TrueSight Pulse ETL Toll is installed via [pip](https://pip.pypa.io/en/stable/installing/):
+
+```
+$ pip install tspetl
+```
+
 # Authentication
 
 The accompanying tool requires your login _email_ and _api token_.
