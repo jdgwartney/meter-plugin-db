@@ -20,6 +20,8 @@ import csv
 import time
 import logging
 
+logger = logging.getLogger(__name__)
+
 
 class CSVCollector(ETLCollector):
 
@@ -34,8 +36,10 @@ class CSVTool(ETLTool):
     def __init__(self):
         super(CSVTool, self).__init__()
         self._file_path = None
-        self._batch_count = None
+        self._batch_count = 1
         self._skip_first_line = False
+        self._origin = None
+        self._app_id = None
         logging.basicConfig(level=logging.DEBUG)
 
     @property
@@ -48,9 +52,14 @@ class CSVTool(ETLTool):
 
     def add_parser(self, sub_parser):
         super(CSVTool, self).add_parser(sub_parser)
-        self._parser.add_argument('-f', '--file', dest='file_path', metavar="file_path", help="Path to file to import", required=False)
+        self._parser.add_argument('-f', '--file', dest='file_path', metavar="file_path",
+                                  help="Path to file to import", required=False)
         self._parser.add_argument('-b', '--batch', dest='batch_count', metavar="batch_count",
-                                  help="How measurements to send in each API call", required=False)
+                                  help="How many measurements to send in each API call", required=False)
+        self._parser.add_argument('-o', '--origin', dest='origin', metavar="origin",
+                                  help="Origin to associated with the measurements", required=False)
+        self._parser.add_argument('-p', '--application-id', dest='app_id', metavar="id",
+                                  help="Application Id to associate with the measurements", required=False)
         self._parser.add_argument('--skip-first-line', dest='skip_first_line', action="store_true",
                                   help="Skip header line in file")
 
@@ -66,21 +75,45 @@ class CSVTool(ETLTool):
         if args.skip_first_line is not None:
             self._skip_first_line = args.skip_first_line
 
+        if args.origin is not None:
+            self._origin = args.origin
+
+        if args.app_id is not None:
+            self._app_id = args.app_id
+
     def run(self, sink):
         metric = None
         value = None
         source = None
         timestamp = None
+        app_id = self._app_id
+        origin = self._origin
         first = self._skip_first_line
+        # TODO: Only allow batch of one since the measurement API is broken for batch
+        batch_count = 1
+        row_count = 1
+        properties = None
+        if origin is not None or app_id is not None:
+            properties = {}
+            if origin is not None:
+                properties['origin'] = self._origin
+            if app_id is not None:
+                properties['app_id'] = self._app_id
 
         with open(self._file_path) as f:
             reader = csv.reader(f)
+            measurements = []
             for row in reader:
+                logger.debug("row length: {0}".format(len(row)))
 
                 if first:
+                    header = ','.join(row)
+                    logger.info("header: {0}".format(header))
                     first = False
+                    row_count += 1
                     continue
 
+                timestamp = int(time.time())
                 if len(row) == 4:
                     metric = row[0]
                     value = row[1]
@@ -95,9 +128,13 @@ class CSVTool(ETLTool):
                     value = row[1]
                 else:
                     pass
-                timestamp = int(time.time())
-                print(timestamp)
-                print('metric={0}, value={1}, source={2}, timestamp={3}'.format(metric, value, source, timestamp))
-                measurement = Measurement(metric=metric, value=value, source=source, timestamp=timestamp)
-                sink.send_measurement(measurement)
+                measurement = Measurement(metric=metric, value=value, source=source, timestamp=timestamp,
+                                          properties=properties)
+                logger.debug(measurement)
+                measurements.append(measurement)
+                if row_count % batch_count == 0:
+                    logger.info("sending {0} measurements".format(len(measurements)))
+                    sink.send_measurement(measurement)
+                    measurements = []
+                row_count += 1
 
