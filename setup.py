@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='tspetl',
-    version='0.1.1',
+    version='0.1.2',
     url="http://github.io/boundary/meter-plugin-db",
     author='David Gwartney',
     author_email='david_gwartney@bmc.com',
@@ -19,6 +19,7 @@ setup(
     description='TrueSight Pulse Database Extractor',
     long_description=open('README.txt').read(),
     install_requires=[
+       'python-dateutil',
        'tspapi',
        'pyowm',
        'petl',
