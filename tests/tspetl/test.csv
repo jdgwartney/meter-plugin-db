@@ -1,10 +1,28 @@
-"metric", "value", "source"
-CPU, 0.1,"foo"
-CPU, 0.2,"foo"
-CPU, 0.3,"foo"
-CPU, 0.4,"foo"
-CPU, 0.5,"foo"
-CPU, 0.6,"foo"
-CPU, 0.7,"foo"
-CPU, 0.8,"foo"
-CPU, 0.9,"foo"
+"metric", "value", "source", "timestamp"
+CPU, 0.1,"etl-test-red",1466406000
+CPU, 0.2,"etl-test-red",1466413200
+CPU, 0.3,"etl-test-red",1466416800
+CPU, 0.4,"etl-test-red",1466420400
+CPU, 0.5,"etl-test-red",1466424000
+CPU, 0.6,"etl-test-red",1466427600
+CPU, 0.7,"etl-test-red",1466431200
+CPU, 0.8,"etl-test-red",1466434800
+CPU, 0.9,"etl-test-red",1466438400
+CPU, 0.1,"etl-test-green","2016-06-23 1:00AM"
+CPU, 0.2,"etl-test-green","2016-06-23 2:00AM"
+CPU, 0.3,"etl-test-green","2016-06-23 3:00AM"
+CPU, 0.4,"etl-test-green","2016-06-23 4:00AM"
+CPU, 0.5,"etl-test-green","2016-06-23 5:00AM"
+CPU, 0.6,"etl-test-green","2016-06-23 6:00AM"
+CPU, 0.7,"etl-test-green","2016-06-23 7:00AM"
+CPU, 0.8,"etl-test-green","2016-06-23 8:00AM"
+CPU, 0.9,"etl-test-green","2016-06-23 9:00AM"
+CPU, 0.1,"etl-test-blue","2016-06-23 13:00"
+CPU, 0.2,"etl-test-blue","2016-06-23 14:00"
+CPU, 0.3,"etl-test-blue","2016-06-23 15:00"
+CPU, 0.4,"etl-test-blue","2016-06-23 16:00"
+CPU, 0.5,"etl-test-blue","2016-06-23 17:00"
+CPU, 0.6,"etl-test-blue","2016-06-23 18:00"
+CPU, 0.7,"etl-test-blue","2016-06-23 19:00"
+CPU, 0.8,"etl-test-blue","2016-06-23 20:00"
+CPU, 0.9,"etl-test-blue","2016-06-23 21:00"
