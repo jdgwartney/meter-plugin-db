@@ -16,12 +16,12 @@ setup(
             'tsp-etl = tspetl.etl_cli:main',
          ],
     },
-    description='TrueSight Pulse Database Extractor',
+    description='TrueSight Pulse ETL Tool',
     long_description=open('README.txt').read(),
     install_requires=[
-       'python-dateutil',
-       'tspapi',
-       'pyowm',
-       'petl',
+       'python-dateutil >= 2.5.2',
+       'tspapi >= 0.3.4',
+       'pyowm >= 2.3.0',
+       'petl >= 1.1.0',
     ],
 )
