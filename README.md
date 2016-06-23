@@ -28,6 +28,7 @@ The list of tools available can be listed by running the following:
 $ tsp-etl -h
 ```
 
+```
 usage: tsp-etl [-h] {weather,apachelog,twitter,csv,log} ...
 
 Tool to extract/transform/load into Pulse
@@ -44,7 +45,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  
+```
 
 ## Tool Usage
 
