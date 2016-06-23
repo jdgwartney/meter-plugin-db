@@ -30,7 +30,7 @@ class DBTool(ETLTool):
 
     @property
     def help(self):
-        return 'Import data from a relational database'
+        return 'Import data from a relational database (Future Release)'
 
     def add_parser(self, parser):
         self._parser = parser.add_parser(self.name, help=self.help)

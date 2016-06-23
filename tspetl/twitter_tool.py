@@ -27,7 +27,7 @@ class TwitterTool(ETLTool):
 
     @property
     def help(self):
-        return 'Collects tweet data from Twitter'
+        return 'Collects tweet data from Twitter (Future Release)'
 
     def add_parser(self, sub_parser):
         super(TwitterTool, self).add_parser(sub_parser)

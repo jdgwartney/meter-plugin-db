@@ -62,7 +62,7 @@ class WeatherTool(ETLTool):
 
     @property
     def help(self):
-        return 'Collects weather measurements from a city and optional country code.'
+        return 'Collects weather measurements from a city and optional country code. (Future Release)'
 
     def add_parser(self, sub_parser):
         super(WeatherTool, self).add_parser(sub_parser)

@@ -27,7 +27,7 @@ class StockTool(ETLTool):
 
     @property
     def help(self):
-        return 'Collects stock price and volume'
+        return 'Collects stock price and volume (Future Release)'
 
     def add_parser(self, sub_parser):
         super(StockTool, self).add_parser(sub_parser)

@@ -27,7 +27,7 @@ class SalesForceTool(ETLTool):
 
     @property
     def help(self):
-        return 'Collects measurements from an Sales Force'
+        return 'Collects measurements from an Sales Force (Future Release)'
 
     def add_parser(self, sub_parser):
         super(SalesForceTool, self).add_parser(sub_parser)

@@ -40,18 +40,18 @@ class TspEtlCli(object):
 
         self._tool_map = {}
         self._add_tool(ApacheLogTool())
-        self._add_tool(DBTool())
+        # self._add_tool(DBTool())
         self._add_tool(CSVTool())
-        self._add_tool(GitHubTool())
-        self._add_tool(JiraTool())
+        # self._add_tool(GitHubTool())
+        # self._add_tool(JiraTool())
         self._add_tool(LogTool())
-        self._add_tool(SalesForceTool())
-        self._add_tool(SNMPTool())
-        self._add_tool(StockTool())
-        self._add_tool(SysLogTool())
+        # self._add_tool(SalesForceTool())
+        # self._add_tool(SNMPTool())
+        # self._add_tool(StockTool())
+        # self._add_tool(SysLogTool())
         self._add_tool(TwitterTool())
         self._add_tool(WeatherTool())
-        self._add_tool(XMLTool())
+        # self._add_tool(XMLTool())
 
     def _add_tool(self, tool):
         self._tool_map[tool.name] = tool

@@ -26,7 +26,7 @@ class ApacheLogTool(ETLTool):
 
     @property
     def help(self):
-        return 'Parses apache logs for page status'
+        return 'Parses apache logs for page status. (Future Release)'
 
     def add_parser(self, sub_parser):
         super(ApacheLogTool, self).add_parser(sub_parser)

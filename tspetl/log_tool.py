@@ -27,7 +27,7 @@ class LogTool(ETLTool):
 
     @property
     def help(self):
-        return 'Collects measurements from log files'
+        return 'Collects measurements from log files (Future Release)'
 
     def add_parser(self, sub_parser):
         super(LogTool, self).add_parser(sub_parser)
