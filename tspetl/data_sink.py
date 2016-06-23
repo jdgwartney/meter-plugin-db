@@ -50,7 +50,8 @@ class APIDataSink(DataSink):
         self._api.measurement_create(metric=measurement.metric,
                                      value=measurement.value,
                                      source=measurement.source,
-                                     timestamp=measurement.timestamp)
+                                     timestamp=measurement.timestamp,
+                                     properties=measurement.properties)
 
     def send_measurements(self, measurements):
         self._api.measurement_create_batch(measurements)
