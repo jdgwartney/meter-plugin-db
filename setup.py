@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='tspetl',
-    version='0.1.2',
+    version='0.1.3',
     url="http://github.io/boundary/meter-plugin-db",
     author='David Gwartney',
     author_email='david_gwartney@bmc.com',
